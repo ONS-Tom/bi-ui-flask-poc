@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- SDC global styles -->
+    <link rel="stylesheet" href="https://cdn.ons.gov.uk/sdc/8f80aaa/css/styles.css">
+
+    <!-- Registers CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registers-main.css') }}" media="all">
+
+    <title>Business Index</title>
+  </head>
+  <body>
+    <section>
+        <header class="page__header">
+            <div class="logo_container">
+                <div class="wrapper">
+                    <div class="group">
+                        <div class="col-7">
+                            <div class="logo_header">
+                                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="header_links">
+                                <ul class="menubar" role="menubar" id="appmenu">
+                                    <li class="menubar" role="menuitem"><a href="index.html" class="username">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page_title">
+                <div class="wrapper">
+                    <div class="group">
+                        <div class="col-12">
+                            <p class="saturn main_heading_sub_page">Business Index</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="content">{% block content %}{% endblock %}</div>
+        {% include 'footer.html' %}
+    </section>
+  </body>
+  <script src="https://cdn.ons.gov.uk/sdc/8f80aaa/scripts/bundle.min.js"></script>
+</html>
