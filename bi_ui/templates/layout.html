@@ -27,9 +27,11 @@
                         </div>
                         <div class="col-5">
                             <div class="header_links">
-                                <ul class="menubar" role="menubar" id="appmenu">
-                                    <li class="menubar" role="menuitem"><a href="index.html" class="username">Sign out</a></li>
-                                </ul>
+                                {% if session['logged_in'] == True %}
+                                    <ul class="menubar" role="menubar" id="appmenu">
+                                        <li class="menubar" role="menuitem"><a href="index.html" class="username">Sign out</a></li>
+                                    </ul>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
