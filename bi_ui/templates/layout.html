@@ -22,15 +22,25 @@
                     <div class="group">
                         <div class="col-7">
                             <div class="logo_header">
-                                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
+                                {% if current_user.is_authenticated == True %}
+                                    <a href="{{ url_for('home_bp.home') }}">
+                                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('login_bp.login') }}">
+                                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Office for National Statistics" class="logo__img"/>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="header_links">
-                                {% if session['logged_in'] == True %}
-                                    <ul class="menubar" role="menubar" id="appmenu">
-                                        <li class="menubar" role="menuitem"><a href="index.html" class="username">Sign out</a></li>
-                                    </ul>
+                                {% if current_user.is_authenticated == True %}
+                                    <form id="form-sign-out" action="http://localhost:5000/auth/logout" class="form" method="POST">
+                                        <ul class="menubar" role="menubar" id="appmenu">
+                                            <li class="menubar" role="menuitem"><button class="logout">Sign out</button></li>
+                                        </ul>
+                                    </form>
                                 {% endif %}
                             </div>
                         </div>

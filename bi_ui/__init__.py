@@ -35,4 +35,5 @@ Session(app)
 
 
 import bi_ui.views  # NOQA # pylint: disable=wrong-import-position
+import bi_ui.routes  # NOQA # pylint: disable=wrong-import-position
 import bi_ui.error_handlers  # NOQA # pylint: disable=wrong-import-position

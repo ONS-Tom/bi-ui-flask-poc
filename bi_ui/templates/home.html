@@ -1,5 +1,109 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Home</h1>
+    <section>
+        <div class="main-content">
+            <div class="wrapper">
+                <div class="group">
+                    <div class="col-8">
+                        <h2 class="saturn">Search the UK business population</h2>
+                        <div class="panel panel--simple panel--info u-mb-l">
+                            <p class="mars">To get started, search using one or more of the options below.</p>
+                        <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="group">
+                <div class="col-6">
+                    <form class="form" action="search-results.html">
+                        <div class="field u-mb-s">
+                            <label class="label">Business name, CRN, VAT, PAYE or UBRN</label>
+                            <input class="input input--text input-type__input bi-search-input" type="text" id="name-input">
+                        </div>
+                        <div class="field u-mb-s">
+                            <label class="label">Postcode</label>
+                            <input class="input input--text input-type__input bi-postcode-input" type="text" id="postcode-input">
+                        </div>
+                        <div class="field u-mb-s">
+                            <label class="label">Industry classification (SIC)</label>
+                            <div class="field--toggle">
+                                <label class="label label--inline venus field__label" for="showPasswordToggle">Search range</label>
+                                <input id="showPasswordToggle" class="field__input input input--checkbox" type="checkbox" />
+                            </div>
+                            <div id="single">
+                                <input class="input input--text input-type__input bi-postcode-input" type="text" id="sic-single-input">
+                            </div>
+                            <div id="range">
+                                <input class="input input--text input-type__input bi-sic-input" type="text" id="sic-min-input" value="From" onfocus="if (this.value=='From') this.value='';" onblur="if (this.value=='') this.value='From';">
+                                <input class="input input--text input-type__input bi-sic-input second" type="text" id="sic-max-input" value="To" onfocus="if (this.value=='To') this.value='';" onblur="if (this.value=='') this.value='To';">
+                            </div>
+                        </div>
+                        <div class="field field--select u-mb-s">
+                        <label class="label" for="employees-select">Number of employees</label>
+                        <select id="employees-select" name="skills" multiple="" class="ui fluid dropdown">
+                            <option value="">Select all</option>
+                            <option value="a">0</option>
+                            <option value="b">1</option>
+                            <option value="c">2 to 4</option>
+                            <option value="d">5 to 9</option>
+                            <option value="e">10 to 19</option>
+                            <option value="f">20 to 24</option>
+                            <option value="g">25 to 49</option>
+                            <option value="h">50 to 74</option>
+                            <option value="i">75 to 99</option>
+                            <option value="j">100 to 149</option>
+                            <option value="k">150 to 199</option>
+                            <option value="l">200 to 249</option>
+                            <option value="m">250 to 299</option>
+                            <option value="n">300 to 499</option>
+                            <option value="o">500 and over</option>
+                        </select>
+                        </div>
+                        <div class="field field--select u-mb-s">
+                            <label class="label" for="turnover-select">Turnover band</label>
+                            <select id="turnover-select" name="skills" multiple="" class="ui fluid dropdown">
+                                <option value="">Search all</option>
+                                <option value="a">£0 to £99k</option>
+                                <option value="b">£100k to £249k</option>
+                                <option value="c">£250k to £499k</option>
+                                <option value="d">£250k to £499k</option>
+                                <option value="e">£500k to £999k</option>
+                                <option value="f">£2m to £4.99m</option>
+                                <option value="g">£5m to £9.99m</option>
+                                <option value="g">£10m to £49.99m</option>
+                                <option value="g">£50m and over</option>
+                            </select>
+                        </div>
+                        <div class="field field--select u-mb-s">
+                            <label class="label" for="trading-status-select">Trading status</label>
+                            <select id="trading-status-select" name="skills" multiple="" class="ui fluid dropdown">
+                                <option value="">Search all</option>
+                                <option value="a">Active</option>
+                                <option value="b">Closed</option>
+                                <option value="c">Dormant</option>
+                                <option value="d">Insolvent</option>
+                            </select>
+                        </div>
+                        <div class="field field--select u-mb-l">
+                            <label class="label" for="legal-status-select">Legal status</label>
+                            <select id="legal-status-select" name="skills" multiple="" class="ui fluid dropdown">
+                                <option value="">Search all</option>
+                                <option value="a">Company</option>
+                                <option value="b">Sole Proprietor</option>
+                                <option value="c">Partnerships</option>
+                                <option value="d">Public Corporation</option>
+                                <option value="e">Central Government</option>
+                                <option value="f">Local Authority</option>
+                                <option value="g">Non-Profic Organisation</option>
+                                <option value="h">Charity</option>
+                            </select>
+                        </div>
+                        <button class="btn btn--primary venus" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -24,3 +24,11 @@
     cursor: pointer;
     width: 200px;
 }
+
+.logout {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}

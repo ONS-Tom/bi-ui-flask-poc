@@ -15,10 +15,11 @@ Previous repository: https://github.com/ONSdigital/bi-ui
 **[2. Running Instructions](#running-instructions)**<br>
 **[3. Testing](#testing)**<br>
 **[4. Dependencies](#dependencies)**<br>
-**[5. Contributing](#contributing)**<br>
-**[6. License](#license)**<br>
+**[5. Troubleshooting](#troubleshooting)**<br>
+**[6. Contributing](#contributing)**<br>
+**[7. License](#license)**<br>
 
-# Environment Setup
+## Environment Setup
 
 Firstly, install Python 3:
 
@@ -32,7 +33,7 @@ Create a virtual environment (from inside the cloned repository):
 python3 -m venv venv
 ```
 
-# Running Instructions
+## Running Instructions
 
 Activate the virtual environment:
 
@@ -54,13 +55,17 @@ FLASK_APP=run.py FLASK_DEBUG=1 python3 -m flask run
 
 The user interface can be accessed on http://localhost:5000.
 
-# Testing
+## Testing
 
-# Dependencies
+## Dependencies
 
 * [flask-login](http://flask-login.readthedocs.io/en/latest/)
 * [flask-session](http://flask-session.readthedocs.io/en/latest/)
 * [flask-restful](http://flask-restful.readthedocs.io/en/latest/)
+
+## Troubleshooting
+
+If your updates to static files aren't registering, reset the cache (shift + press refresh in Chrome).
 
 ## Contributing
 
