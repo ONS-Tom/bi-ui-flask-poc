@@ -4,10 +4,6 @@
 
 A proof of concept of the Business Index User Interface using Flask.
 
-Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
-
-https://github.com/ONSdigital/response-operations-ui
-
 Previous repository: https://github.com/ONSdigital/bi-ui
 
 ### Table of Contents
