@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <section>
+        <div class="main-content">
+            <div class="wrapper">
+                <div class="group">
+                    <div class="col-8">
+                        <h2 class="saturn">Search the UK business population</h2>
+                        <div class="panel panel--simple panel--info u-mb-l">
+                            <p class="mars">To get started, search using one or more of the options below.</p>
+                        <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="group">
+                <div class="col-6">
+                    <form class="form" action="search-results.html">
+                        <div class="field u-mb-s">
+                            <label class="label">Business name, CRN, VAT, PAYE or UBRN</label>
+                            <input class="input input--text input-type__input bi-search-input" type="text" id="name-input">
+                        </div>
+                        <button class="btn btn--primary venus" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
