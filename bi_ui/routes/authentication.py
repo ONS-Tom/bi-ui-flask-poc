@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, url_for, request, render_template, flash,
 from flask_login import login_required, current_user, logout_user, login_user
 from bi_ui.models.user import User
 
+
 authentication_bp = Blueprint('authentication_bp', __name__, static_folder='static', template_folder='templates')
 
 
