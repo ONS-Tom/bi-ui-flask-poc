@@ -5,7 +5,7 @@
       <div class="wrapper">
           <div class="group">
               <div class="col-12">
-                  <form id="form-sign-in" action="http://localhost:5000/" class="form" method="POST">
+                  <form id="form-sign-in" action="http://localhost:5000/auth/login" class="form" method="POST">
                       <h3 class="saturn">Sign in</h3>
                       <div class="field u-mb-s">
                           <label class="label">Username</label>
@@ -21,19 +21,23 @@
                       </div>
                       <p class="forgot-password"><a href="forgot-password.html">Forgot password?</a></p>
                       <button class="btn btn--primary venus" type="submit">Sign in</button>
-                      {% if error %}
-                        <div class="main-content">
-                            <div class="wrapper">
-                                <div class="group">
-                                    <div class="col-8">
-                                        <div class="panel panel--simple panel--error u-mb-l">
-                                            <p class="mars">{{ error }}</p>
-                                        <div>
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for error in messages %}
+                                <div class="main-content">
+                                    <div class="wrapper">
+                                        <div class="group">
+                                            <div class="col-8">
+                                                <div class="panel panel--simple panel--error u-mb-l">
+                                                    <p class="mars">{{ error }}</p>
+                                                <div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                      {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                      {% endwith %}
                   </form>
               </div>
           </div>
