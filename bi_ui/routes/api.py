@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, flash, redirect, url_for
 from flask_login import login_required
 
 from bi_ui.services.business_service import BusinessService
@@ -25,4 +25,6 @@ def search_businesses():
         logger.exception('Unable to return Business search results', e)
         raise e
 
-    return jsonify(json)
+    # We will implement pagination later, for now we can just pass a subset of the results
+    flash([148, json[0:5]])
+    return redirect(url_for('results_bp.results'))
