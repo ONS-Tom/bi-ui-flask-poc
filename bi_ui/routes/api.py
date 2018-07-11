@@ -30,7 +30,7 @@ turnover_band = lambda business: convert_band(business, 'Turnover', 'turnover ba
 def search_businesses():
     business_name = request.form['BusinessName']
     try:
-        json = business_service.search_businesses(f'BusinessName:{business_name}')
+        num_results, json = business_service.search_businesses(f'BusinessName:{business_name}')
     except (ApiError, ValueError) as e:
         logger.exception('Unable to return Business search results', e)
         raise e
@@ -41,5 +41,5 @@ def search_businesses():
     businesses = list(map(convert_bands, json_subset))
 
     # We will implement pagination later, for now we can just pass a subset of the results
-    flash([148, businesses])
+    flash([num_results, businesses])
     return redirect(url_for('results_bp.results'))
