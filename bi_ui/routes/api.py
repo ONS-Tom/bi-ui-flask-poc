@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, request, flash, redirect, url_for
+from flask import Blueprint, request, flash, redirect, url_for, Markup
 from flask_login import login_required
 
 from bi_ui.services.business_service import BusinessService
@@ -35,11 +35,20 @@ def search_businesses():
         logger.exception('Unable to return Business search results', e)
         raise e
 
-    json_subset = json[0:5]
-
     convert_bands = compose(sic, trading_status, legal_status, employment_band, turnover_band)
-    businesses = list(map(convert_bands, json_subset))
+    highlighted = [highlight(a, business_name) for a in json]
+    businesses = list(map(convert_bands, highlighted))
 
     # We will implement pagination later, for now we can just pass a subset of the results
     flash([num_results, businesses])
     return redirect(url_for('results_bp.results'))
+
+
+def highlight(business: dict, to_highlight: str) -> dict:
+    original = business['BusinessName']
+    new_name = Markup(original.replace(to_highlight.upper(), f'<em class="highlight">{to_highlight.upper()}</em>'))
+    highlighted_business = {
+        **business,
+        "BusinessName": new_name
+    }
+    return highlighted_business
