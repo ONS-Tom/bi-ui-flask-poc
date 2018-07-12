@@ -1,5 +1,6 @@
 import os
 import logging
+from structlog import wrap_logger
 
 from flask import Flask, redirect, request
 from flask_login import LoginManager
@@ -9,7 +10,7 @@ from bi_ui.models.user import User
 from bi_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable
 
 
-logger = logging.getLogger(__name__)
+logger = wrap_logger(logging.getLogger(__name__))
 
 
 app = Flask(__name__)
@@ -30,8 +31,9 @@ if environment == 'PROD':
     if missing_vars:
         raise MissingEnvironmentVariable(missing_vars)
 
-
-logger.setLevel(app.config['LOG_LEVEL'])
+log_level = app.config['LOG_LEVEL']
+logging.basicConfig(level=log_level, format='%(message)s')
+logger.info('Log level set', log_level=log_level)
 logger.info('Loaded configuration successfully', app_config=app_config)
 
 login_manager = LoginManager()
@@ -52,7 +54,6 @@ def clear_trailing():
 
 
 app.url_map.strict_slashes = False
-app.secret_key = 'change_me'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
