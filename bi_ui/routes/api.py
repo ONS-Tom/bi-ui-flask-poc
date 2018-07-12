@@ -36,16 +36,17 @@ def search_businesses():
         raise e
 
     convert_bands = compose(sic, trading_status, legal_status, employment_band, turnover_band)
-    highlighted = [highlight(a, business_name) for a in json]
+    highlighted = [highlight(business, business_name) for business in json]
     businesses = list(map(convert_bands, highlighted))
 
     # We will implement pagination later, for now we can just pass a subset of the results
-    flash([num_results, businesses])
+    flash([num_results, businesses[0:5]])
     return redirect(url_for('results_bp.results'))
 
 
 def highlight(business: dict, to_highlight: str) -> dict:
     original = business['BusinessName']
+    # We need to use Markup so that Jinja will render our HTML properly
     new_name = Markup(original.replace(to_highlight.upper(), f'<em class="highlight">{to_highlight.upper()}</em>'))
     highlighted_business = {
         **business,
