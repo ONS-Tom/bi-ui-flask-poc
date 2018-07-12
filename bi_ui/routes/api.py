@@ -32,7 +32,7 @@ def search_businesses():
     try:
         num_results, json = business_service.search_businesses(f'BusinessName:{business_name}')
     except (ApiError, ValueError) as e:
-        logger.exception('Unable to return Business search results', e)
+        logger.error('Unable to return Business search results')
         raise e
 
     convert_bands = compose(sic, trading_status, legal_status, employment_band, turnover_band)

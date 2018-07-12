@@ -2,13 +2,6 @@ import os
 
 
 class DevConfig:
-    """
-    For the 'important' environment variables (URLs), we want to be able to 'fail-fast' if no environment
-    variable has been set, so we will leave those config values as None. For non-vital config such as
-    timeouts, we provide a default value.
-
-    In the application startup code, if any None's are found in the config, the application will not start.
-    """
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
     API_TIMEOUT = os.getenv('API_TIMEOUT', 10)
     AUTH_TIMEOUT = os.getenv('AUTH_TIMEOUT', 10)
@@ -22,6 +15,12 @@ class TestConfig(DevConfig):
 
 
 class ProdConfig(DevConfig):
+    """
+    For the 'important' environment variables (URLs, secret key), we want to be able to 'fail-fast' if no environment
+    variable has been set, so we will leave those config values as None. For non-vital config such as
+    timeouts, we provide a default value. When the config is being loaded in PROD,the REQUIRED_VARS list will be
+    used to fail the startup if any values are missing.
+    """
     REQUIRED_VARS = ['AUTH_URL', 'API_URL', 'SECRET_KEY']
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'WARNING')
     AUTH_URL = os.getenv('AUTH_URL')
