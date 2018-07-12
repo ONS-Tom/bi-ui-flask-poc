@@ -1,12 +1,12 @@
 import logging
-from flask import Blueprint, request, flash, redirect, url_for, Markup
+from flask import Blueprint, request, flash, redirect, url_for
 from flask_login import login_required
 
 from bi_ui.services.business_service import BusinessService
 from bi_ui.models.exceptions import ApiError
 from bi_ui.utilities.sic_codes import industry_code_description
 from bi_ui.utilities.convert_bands import employment_bands, legal_status_bands, turnover_bands, trading_status_bands
-from bi_ui.utilities.helpers import compose, convert_band
+from bi_ui.utilities.helpers import compose, convert_band, highlight
 
 
 logger = logging.getLogger(__name__)
@@ -43,13 +43,3 @@ def search_businesses():
     flash([num_results, businesses[0:5]])
     return redirect(url_for('results_bp.results'))
 
-
-def highlight(business: dict, to_highlight: str) -> dict:
-    original = business['BusinessName']
-    # We need to use Markup so that Jinja will render our HTML properly
-    new_name = Markup(original.replace(to_highlight.upper(), f'<em class="highlight">{to_highlight.upper()}</em>'))
-    highlighted_business = {
-        **business,
-        "BusinessName": new_name
-    }
-    return highlighted_business
