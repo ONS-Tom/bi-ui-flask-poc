@@ -1,5 +1,5 @@
 import uuid
-from flask import Blueprint, redirect, url_for, request, render_template, flash, json
+from flask import Blueprint, redirect, url_for, request, flash
 from flask_login import login_required, current_user, logout_user, login_user
 from bi_ui.models.user import User
 

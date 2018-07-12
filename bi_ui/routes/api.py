@@ -42,4 +42,3 @@ def search_businesses():
     # We will implement pagination later, for now we can just pass a subset of the results
     flash([num_results, businesses[0:5]])
     return redirect(url_for('results_bp.results'))
-
