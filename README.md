@@ -46,7 +46,7 @@ pip install -r requirements.txt
 Run the server in development mode, with hot-reloading:
 
 ```shell
-FLASK_APP=run.py FLASK_DEBUG=1 python3 -m flask run
+FLASK_APP=run.py FLASK_DEBUG=1 ENVIRONMENT=DEV python3 -m flask run
 ```
 
 The user interface can be accessed on http://localhost:5000.

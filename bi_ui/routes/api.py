@@ -32,7 +32,7 @@ def search_businesses():
     try:
         num_results, json = business_service.search_businesses(f'BusinessName:{business_name}')
     except (ApiError, ValueError) as e:
-        logger.exception('Unable to return Business search results', e)
+        logger.error('Unable to return Business search results')
         raise e
 
     convert_bands = compose(sic, trading_status, legal_status, employment_band, turnover_band)
@@ -42,4 +42,3 @@ def search_businesses():
     # We will implement pagination later, for now we can just pass a subset of the results
     flash([num_results, businesses[0:5]])
     return redirect(url_for('results_bp.results'))
-
