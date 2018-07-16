@@ -1,14 +1,16 @@
 import os
 import logging
+import uuid
+
 from structlog import wrap_logger
 
-from flask import Flask, redirect, request
-from flask_login import LoginManager
+from flask import Flask, redirect, request, url_for
+from flask_login import LoginManager, login_user
 
 from flask_session import Session
-from bi_ui.models.user import User
-from bi_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable
-
+from bi_ui.models.user import User, users
+from bi_ui.models.exceptions import InvalidEnvironment, MissingEnvironmentVariable, ApiError
+from bi_ui.services.gateway_authentication_service import GatewayAuthenticationService
 
 logger = wrap_logger(logging.getLogger(__name__))
 
@@ -38,11 +40,13 @@ logger.info('Loaded configuration successfully', app_config=app_config)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+authentication_service = GatewayAuthenticationService(app.config['AUTH_URL'])
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User(user_id)
+def load_user(user_id) -> User:
+    maybe_user = next((user for user in users if user.id == user_id), None)
+    return maybe_user
 
 
 @app.before_request
