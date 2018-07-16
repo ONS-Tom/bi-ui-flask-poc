@@ -5,67 +5,91 @@
     <div class="main-content">
         <div class="wrapper">
             <div class="group">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
                 <div class="col-8">
-                    {% with messages = get_flashed_messages() %}
+                    <form id="form-pagination-top" action="http://localhost:5000/api/next_page" class="form" method="POST">
+                        <div class="group">
+                            <div class="col-3"><button class="btn btn--primary venus" type="submit">Previous</button></div>
+                            <div class="col-1">&nbsp;</div>
+                            <div class="col-3"><button class="btn btn--primary venus" type="submit">Next</button></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-8">
                     <h1 class="jupiter remove-margin">Search results</h1>
-                    {% if messages[0][0] == '1' %}
-                        <p class="mars">We've found 1 business</p>
-                    {% else %}
-                        <p class="mars">We've found {{ messages[0][0] }} businesses</p>
-                    {% endif %}
-                    <div class="key-line"></div>
-                    {% if messages %}
-                    {% for business in messages[0][1] %}
-                    <div class="search-item-container">
-                        <h3 class="saturn sml-margin">{{ business['BusinessName'] }}</h3>
-                        <table class="mars">
-                            <tr>
-                                <th class="table-grey-text">UBRN</th>
-                                <td>{{ business['id'] }}</td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Post Code</th>
-                                <td><a target="_blank" href="https://www.google.co.uk/maps/place/{{ business['PostCode'].replace(' ', '+') }}">{{ business['PostCode'] }}</a></td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Industry Code</th>
-                                <td>{{ business['IndustryCode'] }}</td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Trading Status</th>
-                                <td>{{ business['TradingStatus'] }}</td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Legal Status</th>
-                                <td>{{ business['LegalStatus'] }}</td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Employment Band</th>
-                                <td>{{ business['EmploymentBands'] }}</td>
-                            </tr>
-                            <tr>
-                                <th class="table-grey-text">Turnover</th>
-                                <td>{{ business['Turnover'] }}</td>
-                            </tr>
-                        </table>
-                        <div class="guidance js-details" data-show-label="Show reference numbers" data-hide-label="Hide reference numbers">
-                            <a class="guidance__link js-details-trigger js-details-label mars" aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger" data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
-                            <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
-                                <div class="guidance__content new">
-                                    <table>
-                                        <tr>
-                                            <th class="table-grey-text-reveal">VAT</th>
-                                            <td>32098007900</td>
-                                        </tr>
-                                    </table>
+                        {% if messages[0][0] == '1' %}
+                            <p class="mars">We've found 1 business</p>
+                        {% else %}
+                            <p class="mars">We've found {{ messages[0][0] }} businesses</p>
+                        {% endif %}
+                        <div class="key-line"></div>
+                        {% if messages %}
+                        {% for business in messages[0][1] %}
+                        <div class="search-item-container">
+                            <h3 class="saturn sml-margin">{{ business['BusinessName'] }}</h3>
+                            <table class="mars">
+                                <tr>
+                                    <th class="table-grey-text">UBRN</th>
+                                    <td>{{ business['id'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Post Code</th>
+                                    <td><a target="_blank" href="https://www.google.co.uk/maps/place/{{ business['PostCode'].replace(' ', '+') }}">{{ business['PostCode'] }}</a></td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Industry Code</th>
+                                    <td>{{ business['IndustryCode'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Trading Status</th>
+                                    <td>{{ business['TradingStatus'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Legal Status</th>
+                                    <td>{{ business['LegalStatus'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Employment Band</th>
+                                    <td>{{ business['EmploymentBands'] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-grey-text">Turnover</th>
+                                    <td>{{ business['Turnover'] }}</td>
+                                </tr>
+                            </table>
+                            <div class="guidance js-details" data-show-label="Show reference numbers" data-hide-label="Hide reference numbers">
+                                <a class="guidance__link js-details-trigger js-details-label mars" aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger" data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
+                                <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
+                                    <div class="guidance__content new">
+                                        <table>
+                                            <tr>
+                                                <th class="table-grey-text-reveal">VAT</th>
+                                                <td>32098007900</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                </div>
+                {% else %}
+                    <h1 class="jupiter remove-margin">Search results</h1>
+                    <div class="main-content">
+                        <div class="wrapper">
+                            <div class="group">
+                                <div class="col-8">
+                                    <div class="panel panel--simple panel--error u-mb-l">
+                                        <p class="mars">Please submit a search before navigating to the Results page.</p>
+                                    <div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
-                </div>
+                {% endif %}
+                {% endwith %}
             </div>
         </div>
     </div>
