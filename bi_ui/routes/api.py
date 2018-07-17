@@ -27,11 +27,15 @@ PAGE_SIZE = 5  # This should be moved into config
 ERROR_MESSAGES = {
     404: 'The search query you entered did not return any results.',
     500: 'An error occurred. Please contact your system administrator.',
+    503: 'An error occurred. This is likely to be an issue with ElasticSearch.',
+    504: 'An error occurred. This is likely to be a timeout issue.'
 }
 
 ERROR_CODES = {
     404: 'Not Found',
-    500: 'Internal Server Error'
+    500: 'Internal Server Error',
+    503: 'Service Unavailable',
+    504: 'Gateway Timeout'
 }
 
 
