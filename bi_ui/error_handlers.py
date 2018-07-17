@@ -1,13 +1,24 @@
-import logging
-
-from flask import flash, redirect, url_for
+from flask import redirect, url_for, session
 
 from bi_ui import app
 
 
-logger = logging.getLogger(__name__)
+"""
+Generic errors are handled here, specific errors for the API are handled within the API blueprint.
+"""
 
 
 @app.errorhandler(404)
-def not_found_error(error):  # pylint: disable=unused-argument
-    return redirect(url_for('error_bp.not_found_error'))
+def not_found_error(error):
+    session['level'] = 'warn'
+    session['title'] = '404 - Not Found'
+    session['error_message'] = 'The URL you have navigated to cannot be found.'
+    return redirect(url_for('error_bp.error'))
+
+
+@app.errorhandler(401)
+def not_authenticated_error(error):
+    session['level'] = 'error'
+    session['title'] = '401 - Not Authenticated'
+    session['error_message'] = 'Please login before navigating to the Home or Results pages.'
+    return redirect(url_for('error_bp.error'))

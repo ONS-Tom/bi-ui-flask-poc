@@ -1,6 +1,6 @@
 import logging
 from structlog import wrap_logger
-from flask import Blueprint, request, flash, redirect, url_for, session
+from flask import Blueprint, request, redirect, url_for, session
 from flask_login import login_required
 
 from bi_ui.services.business_service import BusinessService
@@ -23,6 +23,31 @@ business_service = BusinessService()
 PAGE_SIZE = 5  # This should be moved into config
 
 
+# Need to look at where to store these, for internationalisation etc.
+ERROR_MESSAGES = {
+    404: 'The search query you entered did not return any results.',
+    500: 'An error occurred. Please contact your system administrator.',
+    503: 'An error occurred. This is likely to be an issue with ElasticSearch.',
+    504: 'An error occurred. This is likely to be a timeout issue.'
+}
+
+ERROR_CODES = {
+    404: 'Not Found',
+    500: 'Internal Server Error',
+    503: 'Service Unavailable',
+    504: 'Gateway Timeout'
+}
+
+
+@api_bp.errorhandler(ApiError)
+def handle_error(error: ApiError):
+    error_code_detail = ERROR_CODES.get(error.status_code, 'Error')
+    session['level'] = 'warn' if error.status_code == 404 else 'error'
+    session['title'] = f'{error.status_code} - {error_code_detail}'
+    session['error_message'] = ERROR_MESSAGES.get(error.status_code, 'An error occurred.')
+    return redirect(url_for('error_bp.error'))
+
+
 sic = lambda business: convert_band(business, 'IndustryCode', 'industry code description', industry_code_description)
 trading_status = lambda business: convert_band(business, 'TradingStatus', 'trading status', trading_status_bands)
 legal_status = lambda business: convert_band(business, 'LegalStatus', 'legal status', legal_status_bands)
@@ -33,6 +58,7 @@ turnover_band = lambda business: convert_band(business, 'Turnover', 'turnover ba
 @api_bp.route('/search_businesses', methods=['POST', 'GET'])
 @login_required
 def search_businesses(business_name=None):
+    # The page request arg is set by our global pagination method for use in the pagination macro
     page = int(request.args.get('page', 1))
 
     # This is to handle when the pagination buttons are pressed
