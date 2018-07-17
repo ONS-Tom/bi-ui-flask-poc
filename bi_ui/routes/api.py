@@ -10,6 +10,7 @@ from bi_ui.utilities.convert_bands import employment_bands, legal_status_bands, 
 from bi_ui.utilities.helpers import compose, convert_band, highlight
 from bi_ui.models.pagination import Pagination
 
+
 logger = wrap_logger(logging.getLogger(__name__))
 
 
@@ -56,9 +57,11 @@ def search_businesses(business_name=None):
     businesses = list(map(convert_bands, highlighted))
 
     pagination = Pagination(int(page), int(5), int(num_results))
-    session['pagination'] = pagination
 
     # We will implement pagination later, for now we can just pass a subset of the results
     flash([num_results, businesses])
+    session['pagination'] = pagination
+    session['num_results'] = num_results
+    session['businesses'] = businesses
     return redirect(url_for('results_bp.results', page=page))
 
