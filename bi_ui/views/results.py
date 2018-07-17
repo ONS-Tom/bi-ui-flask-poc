@@ -1,11 +1,21 @@
-from flask import Blueprint, render_template
+import logging
+from structlog import wrap_logger
+
+from flask import Blueprint, render_template, session, flash
 from flask_login import login_required
+
+
+logger = wrap_logger(logging.getLogger(__name__))
 
 
 results_bp = Blueprint('results_bp', __name__, static_folder='static', template_folder='templates')
 
 
-@results_bp.route('/', methods=['GET'])
+@results_bp.route('/Page/<int:page>', methods=['GET'])
 @login_required
-def results():
-    return render_template('results.html')
+def results(page):
+    pagination = session['pagination']
+    num_results = session['num_results']
+    businesses = session['businesses']
+    flash([num_results, businesses])
+    return render_template('results.html', pagination=pagination)

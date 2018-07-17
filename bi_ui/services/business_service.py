@@ -32,7 +32,7 @@ class BusinessService:
         return response.json()  # Can throw ValueError
 
     def search_businesses(self, query) -> SearchResponse:
-        response = requests.get(f'{self.base_url}/{self.version}/search/{query}')
+        response = requests.get(f'{self.base_url}/{self.version}/search?query={query}')
 
         try:
             response.raise_for_status()

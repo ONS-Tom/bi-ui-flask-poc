@@ -1,11 +1,10 @@
 import os
 import logging
-import uuid
 
 from structlog import wrap_logger
 
 from flask import Flask, redirect, request, url_for
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager
 
 from flask_session import Session
 from bi_ui.models.user import User, users
@@ -40,7 +39,6 @@ logger.info('Loaded configuration successfully', app_config=app_config)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-authentication_service = GatewayAuthenticationService(app.config['AUTH_URL'])
 
 
 @login_manager.user_loader
@@ -60,6 +58,16 @@ def clear_trailing():
 app.url_map.strict_slashes = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+
+
+def url_for_other_page(page):
+    """ This is for pagination, we need to redirect the user to the search_businesses blueprint"""
+    args = request.view_args.copy()
+    args['page'] = page
+    return url_for('api_bp.search_businesses', **args)
+
+
+app.jinja_env.globals['url_for_other_page'] = url_for_other_page
 
 
 import bi_ui.views  # NOQA # pylint: disable=wrong-import-position
