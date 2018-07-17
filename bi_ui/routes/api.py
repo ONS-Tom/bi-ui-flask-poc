@@ -35,6 +35,7 @@ turnover_band = lambda business: convert_band(business, 'Turnover', 'turnover ba
 def search_businesses(business_name=None):
     page = int(request.args.get('page', 1))
 
+    # This is to handle when the pagination buttons are pressed
     if request.method == 'GET':
         business_name = session['business_name']
 
@@ -58,8 +59,6 @@ def search_businesses(business_name=None):
 
     pagination = Pagination(int(page), int(5), int(num_results))
 
-    # We will implement pagination later, for now we can just pass a subset of the results
-    flash([num_results, businesses])
     session['pagination'] = pagination
     session['num_results'] = num_results
     session['businesses'] = businesses
