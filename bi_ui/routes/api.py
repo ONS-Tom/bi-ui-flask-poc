@@ -66,10 +66,9 @@ def search_businesses(business_name=None):
         business_name = session['business_name']
 
     fro = (page - 1) * PAGE_SIZE
-    size = page * PAGE_SIZE
     if not business_name:
         business_name = request.form['BusinessName']
-    query = f'BusinessName:{business_name}&from={fro}&size={size}'
+    query = f'BusinessName:{business_name}&from={fro}&size={PAGE_SIZE}'
     try:
         num_results, json = business_service.search_businesses(query)
     except (ApiError, ValueError) as e:
@@ -83,7 +82,9 @@ def search_businesses(business_name=None):
     highlighted = [highlight(business, business_name) for business in json]
     businesses = list(map(convert_bands, highlighted))
 
-    pagination = Pagination(int(page), int(5), int(num_results))
+    # We need to use the capped number of results for the pagination, or else there will be too many pages
+    capped_num_results = 10000 if int(num_results) > 10000 else int(num_results)
+    pagination = Pagination(int(page), int(5), int(capped_num_results))
 
     session['pagination'] = pagination
     session['num_results'] = num_results
