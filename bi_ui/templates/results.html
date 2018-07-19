@@ -56,10 +56,18 @@
                                 <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
                                     <div class="guidance__content new">
                                         <table>
+                                            {% for vat_ref in business['VatRefs'] %}
                                             <tr>
                                                 <th class="table-grey-text-reveal">VAT</th>
-                                                <td>32098007900</td>
+                                                <td>{{ vat_ref }}</td>
                                             </tr>
+                                            {% endfor %}
+                                            {% for paye_ref in business['PayeRefs'] %}
+                                            <tr>
+                                                <th class="table-grey-text-reveal">PAYE</th>
+                                                <td>{{ paye_ref }}</td>
+                                            </tr>
+                                            {% endfor %}
                                         </table>
                                     </div>
                                 </div>
