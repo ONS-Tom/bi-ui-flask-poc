@@ -9,96 +9,121 @@
                 {% if messages %}
                 <div class="col-8">
                     <h1 class="jupiter remove-margin">Search results</h1>
-                        {% if messages[0][0] == '1' %}
-                            <p class="mars">We've found 1 business</p>
-                        {% else %}
-                            <p class="mars">We've found {{ messages[0][0] }} businesses</p>
-                        {% endif %}
-                        <div class="key-line"></div>
-                        <br/>
-                        <div>{{ paging.render(pagination) }}</div>
-                        {% if messages %}
-                        {% for business in messages[0][1] %}
-                        <div class="search-item-container">
-                            <h3 class="saturn sml-margin">{{ business['BusinessName'] }}</h3>
-                            <table class="mars">
-                                <tr>
-                                    <th class="table-grey-text">UBRN</th>
-                                    <td>{{ business['id'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Post Code</th>
-                                    <td><a target="_blank" href="https://www.google.co.uk/maps/place/{{ business['PostCode'].replace(' ', '+') }}">{{ business['PostCode'] }}</a></td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Industry Code</th>
-                                    <td>{{ business['IndustryCode'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Trading Status</th>
-                                    <td>{{ business['TradingStatus'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Legal Status</th>
-                                    <td>{{ business['LegalStatus'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Employment Band</th>
-                                    <td>{{ business['EmploymentBands'] }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-grey-text">Turnover</th>
-                                    <td>{{ business['Turnover'] }}</td>
-                                </tr>
-                            </table>
-                            <div class="guidance js-details" data-show-label="Show reference numbers" data-hide-label="Hide reference numbers">
-                                <a class="guidance__link js-details-trigger js-details-label mars" aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger" data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
-                                <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
-                                    <div class="guidance__content new">
-                                        <table>
-                                            {% for vat_ref in business['VatRefs'] %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">VAT</th>
-                                                <td>{{ vat_ref }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for paye_ref in business['PayeRefs'] %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">PAYE</th>
-                                                <td>{{ paye_ref }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">CH</th>
-                                                <td>{{ business['CompanyNo'] }}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
+                    {% if messages[0][0] == 1 %}
+                    <p class="mars">We've found 1 business</p>
+                    {% else %}
+                    {% if messages[0][0] >= 10000 %}
+                    <div style="display: inline;">
+                        <p style="display: inline;">We've found {{ messages[0][0] }} businesses</p>
+                        <div style="display: inline-bloc; margin-left: 10px;" class="badge badge--amber">CAPPED</div>
+                    </div>
+                    {% else %}
+                    <p class="mars">We've found {{ messages[0][0] }} businesses</p>
+                    <div class="key-line"></div>
+                    {% endif %}
+                    {% endif %}
+                    {% if messages[0][0] >= 10000 %}
+                    <br/><br/>
+                    <div class="panel panel--warn" style="position: relative;">
+                        <div class="panel__header">
+                            <div class="venus">Warning</div>
+                        </div>
+                        <div class="panel__body">
+                            <div>Your results have been capped at 10,000, from a total of {{ messages[0][0] }} results
                             </div>
                         </div>
-                        {% endfor %}
-                        <br/>
-                        <div>{{ paging.render(pagination) }}</div>
-                        {% endif %}
-                </div>
-                {% else %}
-                    <h1 class="jupiter remove-margin">Search results</h1>
-                    <div class="main-content">
-                        <div class="wrapper">
-                            <div class="group">
-                                <div class="col-8">
-                                    <div class="panel panel--simple panel--error u-mb-l">
-                                        <p class="mars">Please submit a search before navigating to the Results page.</p>
-                                    <div>
+                    </div>
+                    {% endif %}
+
+                    <br/>
+                    <div>{{ paging.render(pagination) }}</div>
+                    {% if messages %}
+                    {% for business in messages[0][1] %}
+                    <div class="search-item-container">
+                        <h3 class="saturn sml-margin">{{ business['BusinessName'] }}</h3>
+                        <table class="mars">
+                            <tr>
+                                <th class="table-grey-text">UBRN</th>
+                                <td>{{ business['id'] }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Post Code</th>
+                                <td><a target="_blank"
+                                       href="https://www.google.co.uk/maps/place/{{ business['PostCode'].replace(' ', '+') }}">{{
+                                    business['PostCode'] }}</a></td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Industry Code</th>
+                                <td>{{ business['IndustryCode'] }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Trading Status</th>
+                                <td>{{ business['TradingStatus'] }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Legal Status</th>
+                                <td>{{ business['LegalStatus'] }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Employment Band</th>
+                                <td>{{ business['EmploymentBands'] }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-grey-text">Turnover</th>
+                                <td>{{ business['Turnover'] }}</td>
+                            </tr>
+                        </table>
+                        <div class="guidance js-details" data-show-label="Show reference numbers"
+                             data-hide-label="Hide reference numbers">
+                            <a class="guidance__link js-details-trigger js-details-label mars"
+                               aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger"
+                               data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
+                            <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
+                                <div class="guidance__content new">
+                                    <table>
+                                        {% for vat_ref in business['VatRefs'] %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">VAT</th>
+                                            <td>{{ vat_ref }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% for paye_ref in business['PayeRefs'] %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">PAYE</th>
+                                            <td>{{ paye_ref }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">CH</th>
+                                            <td>{{ business['CompanyNo'] }}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endif %}
-                {% endwith %}
+                    {% endfor %}
+                    <br/>
+                    <div>{{ paging.render(pagination) }}</div>
+                    {% endif %}
+                </div>
+                {% else %}
+                <h1 class="jupiter remove-margin">Search results</h1>
+                <div class="main-content">
+                    <div class="wrapper">
+                        <div class="group">
+                            <div class="col-8">
+                                <div class="panel panel--simple panel--error u-mb-l">
+                                    <p class="mars">Please submit a search before navigating to the Results page.</p>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 </section>
 {% endblock %}

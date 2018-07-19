@@ -17,5 +17,5 @@ def results(page):
     pagination = session['pagination']
     num_results = session['num_results']
     businesses = session['businesses']
-    flash([num_results, businesses])
+    flash([int(num_results), businesses])
     return render_template('results.html', pagination=pagination)
