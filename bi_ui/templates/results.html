@@ -73,29 +73,31 @@
                                 <td>{{ business['Turnover'] }}</td>
                             </tr>
                         </table>
-                        <div class="guidance js-details" data-show-label="Show reference numbers" data-hide-label="Hide reference numbers">
-                                <a class="guidance__link js-details-trigger js-details-label mars" aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger" data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
-                                <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
-                                    <div class="guidance__content new">
-                                        <table>
-                                            {% for vat_ref in business['VatRefs'] %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">VAT</th>
-                                                <td>{{ vat_ref }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for paye_ref in business['PayeRefs'] %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">PAYE</th>
-                                                <td>{{ paye_ref }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                <th class="table-grey-text-reveal">CH</th>
-                                                <td>{{ business['CompanyNo'] }}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                        <div class="guidance js-details" data-show-label="Show reference numbers"
+                             data-hide-label="Hide reference numbers">
+                            <a class="guidance__link js-details-trigger js-details-label mars"
+                               aria-controls="guidance-answer" aria-expanded="false" id="guidance-trigger"
+                               data-guidance-trigger="true" href="#guidance-answer">Show reference numbers</a>
+                            <div class="guidance__main js-details-body" id="guidance-answer-body" aria-hidden="true">
+                                <div class="guidance__content new">
+                                    <table>
+                                        {% for vat_ref in business['VatRefs'] %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">VAT</th>
+                                            <td>{{ vat_ref }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% for paye_ref in business['PayeRefs'] %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">PAYE</th>
+                                            <td>{{ paye_ref }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <th class="table-grey-text-reveal">CH</th>
+                                            <td>{{ business['CompanyNo'] }}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
